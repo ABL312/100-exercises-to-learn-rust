@@ -15,7 +15,6 @@ enum Status {
     InProgress { assigned_to: String },
     Done,
 }
-
 impl Ticket {
     pub fn new(title: String, description: String, status: Status) -> Ticket {
         if title.is_empty() {
@@ -37,8 +36,12 @@ impl Ticket {
             status,
         }
     }
-    pub fn assigned_to(&self) -> &str {
-        todo!()
+
+    pub fn assigned_to(&self) -> &str{
+        match &self.status{
+            Status::InProgress{ assigned_to } => assigned_to.as_str(),
+            _ => panic!("Only `In-Progress` tickets can be assigned to someone")
+        }
     }
 }
 
